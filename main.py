@@ -3,6 +3,8 @@ from typing import Final
 import numpy as np
 from classes.planet import Planet
 from classes.star import Star
+from utils.calculate_attraction import calculate_distance
+from functools import lru_cache
 
 WIDTH: Final = 800
 HEIGHT: Final = 800
@@ -16,15 +18,30 @@ RED: Final = (255, 0, 0)
 DARK_GREY: Final = (80, 78, 81)
 WHITE: Final = (255, 255, 255)
 
+@lru_cache
+def verify_calculation_by_sun(celestial_body1, celestial_body2, distance):
+    try:
+        verifier = celestial_body2.is_the_sun
+    except not isinstance(celestial_body2, Star):
+        return False
+
+    if verifier:
+        celestial_body1.distance_from_sun = distance
+    return True
+    
+
+
 def main():
     run = True
     clock = pygame.time.Clock()
 
-    sun = Star(0, 0, 1.98892 * 10**30, YELLOW, 30, True)
-    earth = Planet(-1 * Planet.AU, 0, 5.9742 * 10**24, BLUE, 16)
-    mars = Planet(-1.524 * Planet.AU, 0, 6.39 * 10**23, RED, 12)
-    mercury = Planet(0.387 * Planet.AU, 0, 3.30 * 10**23, DARK_GREY, 8)
-    venus = Planet(0.723 * Planet.AU, 0, 4.8685 * 10**24, WHITE, 14) 
+    sun = Star(np.float32(0), np.float32(0), np.float32(1.98892 * 10**30), YELLOW, 30, True)
+    earth = Planet(np.float32(-1 * Planet.AU), np.float32(0), np.float32(5.9742 * 10**24), BLUE, 16)
+    mars = Planet(np.float32(-1.524 * Planet.AU), np.float32(0), np.float32(6.39 * 10**23), RED, 12)
+    mercury = Planet(np.float32(0.387 * Planet.AU), np.float32(0), np.float32(3.30 * 10**23), DARK_GREY, 8)
+    venus = Planet(np.float32(0.723 * Planet.AU), np.float32(0), np.float32(4.8685 * 10**24), WHITE, 14)
+
+    calculate_distance(np.array([earth.x, earth.y]), np.array([sun.x, sun.y])) 
 
 
     used_celestial_bodies = (sun, earth, mars, mercury, venus)
