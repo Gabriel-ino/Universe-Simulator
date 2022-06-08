@@ -11,7 +11,7 @@ def calculate_distance(p1x: np.ndarray, p1y: np.ndarray, p2x: np.ndarray, p2y: n
     return distance, distance_x, distance_y
     
 
-@jit(parallel=True)
+@jit(nopython=True, parallel=True)
 def calculate_attraction(gravity: np.ndarray, mass: np.ndarray, second_mass: np.float32, distance: np.ndarray, distance_x: np.ndarray, distance_y: np.ndarray):
     force = gravity * mass * second_mass.item() / distance ** 2
     theta = np.arctan2(distance_y, distance_x)
