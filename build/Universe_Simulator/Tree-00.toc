@@ -1,0 +1,12 @@
+('/usr/local/lib/python3.10/site-packages/Jinja2-3.1.2-py3.10.egg',
+ None,
+ {'*.abi3.so',
+  '*.cpython-310-x86_64-linux-gnu.so',
+  '*.py',
+  '*.pyc',
+  '*.so',
+  'EGG-INFO'},
+ 'DATA',
+ [('jinja2/py.typed',
+   '/usr/local/lib/python3.10/site-packages/Jinja2-3.1.2-py3.10.egg/jinja2/py.typed',
+   'DATA')])
