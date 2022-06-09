@@ -4,6 +4,6 @@ from .celestial_bodies import CelestialBodies
 
 
 class Planet(CelestialBodies):
-    def __init__(self,x, y, mass, color, radius):
-        super().__init__(x, y, mass, color, radius)
+    def __init__(self,name, x, y, mass, color, radius):
+        super().__init__(name, x, y, mass, color, radius)
 

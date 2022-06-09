@@ -9,9 +9,10 @@ class CelestialBodies:
     AU: Final = np.array([149.6e6 * 1000])
     G: Final = np.array([6.67428e-11])
     TIMESTEP: Final = np.array([3600 * 24]) # 1 Day
-    SCALE: Final = 100 / AU #1AU = 100 pixels
+    SCALE: Final = 80 / AU #1AU = 100 pixels
 
-    def __init__(self, x: np.float32, y: np.float32, mass: np.ndarray, color, radius):
+    def __init__(self, name, x: np.float32, y: np.float32, mass: np.ndarray, color, radius):
+        self.name = name
         self.x = x
         self.y = y
         self.mass = mass
@@ -27,6 +28,7 @@ class CelestialBodies:
     def draw(self, win, screen_width, screen_height, discover_sun, font):
         x = self.x * self.SCALE + screen_width / 2
         y = self.y * self.SCALE + screen_height / 2
+
         if len(self.orbit) > 2:
             updated_points = []
             for point in self.orbit:
@@ -38,7 +40,7 @@ class CelestialBodies:
         
         pygame.draw.circle(win, self.color, (x.item(), y.item()), self.radius)
         if not discover_sun:
-            distance_text = font.render(f"{self.distance_from_sun}m", 1, (255, 255, 255))
+            distance_text = font.render(f"{np.around(self.distance_from_sun, decimals=2)}m", 1, (255, 255, 255))
             win.blit(distance_text, (x.item() - distance_text.get_width()/2, y.item() - distance_text.get_height()/2 + 20))
 
     def update_position(self, celestial_bodies):
