@@ -3,6 +3,7 @@ from typing import Final
 import numpy as np
 from classes.planet import Planet
 from classes.star import Star
+from classes.button import Button
 from functools import lru_cache
 
 
@@ -13,22 +14,33 @@ def discover_sun(obj):
         verifier = obj.is_the_sun
     return verifier
 
+@lru_cache
+def verify_mouse_on_top(x, y, mouse):
+    if x/2 <= mouse[0] <= x/2 + 140 and y/2 <= mouse[1] <= y/2 + 40:
+        return True
+    return False
+
 pygame.init()
 
-
-WIDTH: Final = 800
-HEIGHT: Final = 800
-WINDOW: Final = pygame.display.set_mode((WIDTH, HEIGHT))
-TITLE: Final = "Universe Simulator"
-pygame.display.set_caption(TITLE)
-
+FONT: Final = pygame.font.SysFont('comicsans', 16)
+BUTTON_FONT: Final = pygame.font.SysFont('comicsans', 32)
 YELLOW: Final = (255, 255, 0)
 BLUE: Final = (100, 149, 237)
 RED: Final = (255, 0, 0)
 DARK_GREY: Final = (80, 78, 81)
 WHITE: Final = (255, 255, 255)
+PASTEL: Final = (249, 234, 195)
 
-FONT: Final = pygame.font.SysFont('comicsans', 16)
+WIDTH: Final = 800
+HEIGHT: Final = 800
+WINDOW: Final = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN)
+TITLE: Final = "Universe Simulator"
+pygame.display.set_caption(TITLE)
+
+LOADING: Final = FONT.render("Loading, please wait...", 15, WHITE)
+WINDOW.blit(LOADING, (WIDTH, HEIGHT/2))
+pygame.display.update()
+
 
 
 def main():
@@ -49,13 +61,25 @@ def main():
     venus = Planet(np.float32(0.723 * Planet.AU), np.float32(0), np.float32(4.8685 * 10**24), WHITE, 14)
     venus.y_vel = np.array([-35.02 * 1000])
 
-    used_celestial_bodies = (sun, earth, mars, mercury, venus)
+    jupiter = Planet(np.float32(5.2028 * Planet.AU), np.float32(0), np.float32(1.9 * 10**27), PASTEL, 20)
+    jupiter.y_vel = np.array([13.07 * 1000])
+
+    close_button = Button(10, 30, (170, 170, 170), (100, 100, 100), BUTTON_FONT, "Close")
+
+
+
+    used_celestial_bodies = (sun, earth, mars, mercury, venus, jupiter)
     while run:
         clock.tick(60) # The loop will run at maximum 60 times per second
         WINDOW.fill((0, 0, 0))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if close_button.pos_x / 2 <= mouse[0] <= close_button.pos_x / 2 + 140 and close_button.pos_y /2 <= mouse[1] <= close_button.pos_y / 2 + 40:
+                    run = False
+        mouse = pygame.mouse.get_pos()
+        close_button.draw(WINDOW, verify_mouse_on_top(close_button.pos_x, close_button.pos_y, mouse))
         for used_celestial_body in used_celestial_bodies:
             used_celestial_body.update_position(used_celestial_bodies)
             used_celestial_body.draw(WINDOW, WIDTH, HEIGHT, discover_sun(used_celestial_body), FONT)

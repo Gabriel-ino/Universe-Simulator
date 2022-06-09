@@ -9,7 +9,7 @@ class CelestialBodies:
     AU: Final = np.array([149.6e6 * 1000])
     G: Final = np.array([6.67428e-11])
     TIMESTEP: Final = np.array([3600 * 24]) # 1 Day
-    SCALE: Final = 250 / AU #1AU = 100 pixels
+    SCALE: Final = 100 / AU #1AU = 100 pixels
 
     def __init__(self, x: np.float32, y: np.float32, mass: np.ndarray, color, radius):
         self.x = x
