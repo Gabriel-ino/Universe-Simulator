@@ -50,34 +50,35 @@ def main():
     run = True
     clock = pygame.time.Clock()
 
-    sun = Star("Sun", np.float32(0), np.float32(0), np.float32(1.98892 * 10**30), YELLOW, 30, True)
+    sun = Star("Sun", np.float32(0), np.float32(0), np.float32(1.98892 * 10**30), YELLOW, 15, True)
 
-    earth = Planet("Earth", np.float32(-1 * Planet.AU), np.float32(0), np.float32(5.9742 * 10**24), BLUE, 16)
+    earth = Planet("Earth", np.float32(-1 * Planet.AU), np.float32(0), np.float32(5.9742 * 10**24), BLUE, 4)
     earth.y_vel = np.array([29.783 * 1000])
 
-    mars = Planet("Mars", np.float32(-1.524 * Planet.AU), np.float32(0), np.float32(6.39 * 10**23), RED, 12)
+    mars = Planet("Mars", np.float32(-1.524 * Planet.AU), np.float32(0), np.float32(6.39 * 10**23), RED, 3)
     mars.y_vel = np.array([24.077 * 1000])
 
-    mercury = Planet("Mercury", np.float32(0.387 * Planet.AU), np.float32(0), np.float32(3.30 * 10**23), DARK_GREY, 8)
+    mercury = Planet("Mercury", np.float32(0.387 * Planet.AU), np.float32(0), np.float32(3.30 * 10**23), DARK_GREY, 2)
     mercury.y_vel = np.array([47.4 * 1000])
 
-    venus = Planet("Venus", np.float32(0.723 * Planet.AU), np.float32(0), np.float32(4.8685 * 10**24), WHITE, 14)
+    venus = Planet("Venus", np.float32(0.723 * Planet.AU), np.float32(0), np.float32(4.8685 * 10**24), WHITE, 6)
     venus.y_vel = np.array([-35.02 * 1000])
 
-    jupiter = Planet("Jupiter", np.float32(5.2028 * Planet.AU), np.float32(0), np.float32(1.9 * 10**27), PASTEL, 20)
+    jupiter = Planet("Jupiter", np.float32(5.2028 * Planet.AU), np.float32(0), np.float32(1.9 * 10**27), PASTEL, 8)
     jupiter.y_vel = np.array([13.07 * 1000])
 
-    neptune = Planet("Neptune", np.float32(30.0611 * Planet.AU), np.float32(0), np.float32(1.024 * 10**26), VIOLET_BLUE, 18)
+    neptune = Planet("Neptune", np.float32(30.0611 * Planet.AU), np.float32(0), np.float32(1.024 * 10**26), VIOLET_BLUE, 5)
     neptune.y_vel = np.array([5.45 * 1000])
 
-    uranus = Planet("Uranus", np.float32(19.1914 * Planet.AU), np.float32(0), np.float32(8.686 * 10**25), CYAN, 19)
+    uranus = Planet("Uranus", np.float32(19.1914 * Planet.AU), np.float32(0), np.float32(8.686 * 10**25), CYAN, 6)
     uranus.y_vel = np.array([6.81 * 1000])
+
+    saturn = Planet("Saturn", np.float32(9.5388 * Planet.AU), np.float32(0), np.float32(5.688 * 10**26), (238, 173, 45), 7)
+    saturn.y_vel = np.array([9.5388 * 1000])
 
     close_button = Button(10, 30, (170, 170, 170), (100, 100, 100), BUTTON_FONT, "Close")
 
-
-
-    used_celestial_bodies = (sun, earth, mars, mercury, venus, jupiter, neptune, uranus)
+    used_celestial_bodies = (sun, earth, mars, mercury, venus, jupiter, neptune, uranus, saturn)
     while run:
         clock.tick(60) # The loop will run at maximum 60 times per second
         WINDOW.fill((0, 0, 0))
