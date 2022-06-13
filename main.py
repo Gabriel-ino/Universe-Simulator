@@ -1,4 +1,5 @@
 import pygame
+from pygame import mixer
 from typing import Final
 import numpy as np
 from classes.planet import Planet
@@ -79,6 +80,11 @@ def main():
     close_button = Button(10, 30, (170, 170, 170), (100, 100, 100), BUTTON_FONT, "Close")
 
     used_celestial_bodies = (sun, earth, mars, mercury, venus, jupiter, neptune, uranus, saturn)
+    mixer.init()
+
+    mixer.music.load("sounds/andrew-kn-at-the-edge-of-space-ii-17019.mp3")
+    mixer.music.play(loops=-1) # Repeat music indefinitely
+
     while run:
         clock.tick(60) # The loop will run at maximum 60 times per second
         WINDOW.fill((0, 0, 0))
